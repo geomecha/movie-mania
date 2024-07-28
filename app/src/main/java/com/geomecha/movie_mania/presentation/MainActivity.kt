@@ -14,6 +14,7 @@ import com.geomecha.movie_mania.presentation.theme.MovieManiaTheme
 import com.geomecha.movie_mania.presentation.viewmodel.MainViewModel
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.geomecha.movie_mania.navigation.AppNavigation
@@ -25,6 +26,7 @@ class MainActivity : ComponentActivity() {
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         setContent {
             MovieManiaTheme {
