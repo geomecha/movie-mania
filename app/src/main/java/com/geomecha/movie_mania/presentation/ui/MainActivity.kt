@@ -49,7 +49,7 @@ fun MainScreen(viewModel: MainViewModel) {
     val currentRoute = navBackStackEntry?.destination?.route
 
     Scaffold(
-        topBar = { TopBar() },
+        topBar = { TopBar(currentRoute) },
         bottomBar = { BottomNavigationBar(navController, currentRoute) },
         content = { paddingValues ->
             AppNavigation(

@@ -26,11 +26,12 @@ import com.geomecha.movie_mania.presentation.theme.GREY
 @Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar() {
+fun TopBar(currentRoute: String? = stringResource(id = R.string.home_text)) {
     TopAppBar(
         title = {
             Text(
-                text = stringResource(id = R.string.home_title),
+                text = if (isHomeItem(currentRoute)) stringResource(id = R.string.home_title)
+                else stringResource(id = R.string.favourites_title),
                 style = TextStyle(
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 20.sp,
@@ -57,3 +58,7 @@ fun TopBar() {
             .shadow(elevation = 3.dp, shape = RectangleShape)
     )
 }
+
+@Composable
+private fun isHomeItem(currentRoute: String?) =
+    currentRoute == stringResource(id = R.string.home_text)
