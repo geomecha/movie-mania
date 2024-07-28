@@ -65,9 +65,13 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    //androidx.compose.material3:material3-android:1.2.1
     implementation("androidx.compose.foundation:foundation:1.6.8")
     implementation("androidx.compose.runtime:runtime-livedata")
+    implementation("androidx.paging:paging-compose:3.3.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.3")
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.3")
+    implementation("io.coil-kt:coil-compose:2.3.0")
 
     // Navigation for Compose
     implementation("androidx.navigation:navigation-compose:2.7.7")
@@ -84,4 +88,21 @@ dependencies {
 
     // SplashScreen
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    //Koin
+    implementation("io.insert-koin:koin-android:3.4.0")
+    implementation("io.insert-koin:koin-androidx-compose:3.2.0")
+    implementation("io.insert-koin:koin-core:3.4.0")
+    implementation("io.insert-koin:koin-androidx-workmanager:3.4.0")
+
+    // Room
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    testImplementation("androidx.room:room-testing:2.6.1")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
 }
