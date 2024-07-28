@@ -1,4 +1,4 @@
-package com.geomecha.movie_mania.presentation
+package com.geomecha.movie_mania.presentation.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.geomecha.movie_mania.presentation.theme.MovieManiaTheme
-import com.geomecha.movie_mania.presentation.viewmodel.MainViewModel
+import com.geomecha.movie_mania.presentation.ui.viewmodel.MainViewModel
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen

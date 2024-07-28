@@ -5,9 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.geomecha.movie_mania.presentation.favourites.FavouritesScreen
-import com.geomecha.movie_mania.presentation.home.HomeScreen
-import com.geomecha.movie_mania.presentation.viewmodel.MainViewModel
+import com.geomecha.movie_mania.presentation.ui.favourites.FavouritesScreen
+import com.geomecha.movie_mania.presentation.ui.home.HomeScreen
+import com.geomecha.movie_mania.presentation.ui.viewmodel.MainViewModel
 
 @Composable
 fun AppNavigation(

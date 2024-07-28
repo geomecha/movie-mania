@@ -32,7 +32,7 @@ fun TopBar() {
             Text(
                 text = stringResource(id = R.string.home_title),
                 style = TextStyle(
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.SemiBold,
                     fontSize = 20.sp,
                     color = GREY
                 )

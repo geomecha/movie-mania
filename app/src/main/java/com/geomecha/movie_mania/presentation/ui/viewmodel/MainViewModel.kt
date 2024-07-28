@@ -1,4 +1,4 @@
-package com.geomecha.movie_mania.presentation.viewmodel
+package com.geomecha.movie_mania.presentation.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
