@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.paging.compose.LazyPagingItems
 import com.geomecha.movie_mania.R
+import com.geomecha.movie_mania.domain.model.Video
 import com.geomecha.movie_mania.presentation.constants.EMPTY_SIZE
 import com.geomecha.movie_mania.presentation.extensions.isLoading
 import com.geomecha.movie_mania.presentation.theme.BackgroundColor
@@ -27,13 +28,13 @@ import com.geomecha.movie_mania.presentation.theme.Orange
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainContent(
-    movieList: LazyPagingItems<Any>,
+    videoList: LazyPagingItems<Video>,
     isRefreshing: Boolean,
     onShareClick: (Any) -> Unit,
     onFavouriteClick: (Any) -> Unit
 ) {
 
-    val pullRefreshState = rememberPullRefreshState(isRefreshing, { movieList.refresh() })
+    val pullRefreshState = rememberPullRefreshState(isRefreshing, { videoList.refresh() })
 
     Box(
         modifier = Modifier
@@ -49,19 +50,13 @@ fun MainContent(
                 .size(36.dp)
                 .zIndex(Z_INDEX_TOP)
                 .alpha(
-                    when (movieList.loadState.isLoading()) {
+                    when (videoList.loadState.isLoading()) {
                         true -> ALPHA_VISIBLE
                         else -> ALPHA_INVISIBLE
                     }
                 )
         )
-
-        if (movieList.itemCount > EMPTY_SIZE && !movieList.loadState.isLoading()) {
-            EmptyState(
-                message = stringResource(id = R.string.no_movies_available),
-                onRetry = { movieList.refresh() }
-            )
-        } else {
+        if (videoList.itemCount > EMPTY_SIZE && !videoList.loadState.isLoading()) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize(),
@@ -73,20 +68,25 @@ fun MainContent(
                 ),
                 state = rememberForeverLazyListState(key = SCROLL_KEY)
             ) {
-                items(movieList.itemCount) {
-                    movieList[it]?.let {
-                        MovieCard(
-                            movie = Any(),
-                            onFavouriteClick = { movie ->
-                                onFavouriteClick(movie)
+                items(videoList.itemCount) {
+                    videoList[it]?.let { video ->
+                        VideoCard(
+                            video = video,
+                            onFavouriteClick = { currentVideo ->
+                                onFavouriteClick(currentVideo)
                             },
-                            onShareClick = { movie ->
-                                onShareClick(movie)
+                            onShareClick = { currentVideo ->
+                                onShareClick(currentVideo)
                             }
                         )
                     }
                 }
             }
+        } else {
+            EmptyState(
+                message = stringResource(id = R.string.no_movies_available),
+                onRetry = { videoList.refresh() }
+            )
         }
     }
 }

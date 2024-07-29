@@ -1,7 +1,6 @@
 package com.geomecha.movie_mania.presentation.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,17 +22,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.geomecha.movie_mania.R
+import com.geomecha.movie_mania.domain.model.Video
 import com.geomecha.movie_mania.presentation.theme.ButtonColor
 import com.geomecha.movie_mania.presentation.theme.SemiTransparentBlack
 
 @Composable
-fun MovieCard(
-    movie: Any,
+fun VideoCard(
+    video: Video,
     onFavouriteClick: (Any) -> Unit,
     onShareClick: (Any) -> Unit
 ) {
     Box(
         modifier = Modifier
+            .height(300.dp)
             .fillMaxWidth()
             .padding(top = 4.dp, start = 4.dp, end = 4.dp, bottom = 12.dp)
             .shadow(
@@ -43,20 +44,18 @@ fun MovieCard(
                 ambientColor = SemiTransparentBlack
             )
             .clip(RoundedCornerShape(CORNER_MAIN.dp))
-            .clickable {
-                onFavouriteClick(movie)
-            }
             .background(Color.White)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
 
             Box(Modifier.alpha(ALPHA_VISIBLE)) {
                 Column {
-                    MovieCardMainInfo(movie)
+                    VideoCardMainInfo(video)
 
                     Spacer(Modifier.height(8.dp))
                 }
             }
+            Spacer(modifier = Modifier.weight(1f))
             Row(
                 modifier = Modifier
                     .padding(10.dp)
@@ -64,7 +63,7 @@ fun MovieCard(
                 horizontalArrangement = Arrangement.End
             ) {
                 TextButton(
-                    onClick = { onFavouriteClick(movie) }
+                    onClick = { onFavouriteClick(video) }
                 ) {
                     Text(
                         text = stringResource(id = R.string.like),
@@ -74,7 +73,7 @@ fun MovieCard(
 
                 }
                 TextButton(
-                    onClick = { onShareClick(movie) }
+                    onClick = { onShareClick(video) }
                 ) {
                     Text(
                         text = stringResource(id = R.string.share),

@@ -21,7 +21,7 @@ import com.geomecha.movie_mania.presentation.ui.viewmodel.MainViewModel
 @Composable
 fun HomeScreen(navController: NavHostController, viewModel: MainViewModel) {
 
-    val movieList = viewModel.movieList.collectAsLazyPagingItems()
+    val movieList = viewModel.videoList.collectAsLazyPagingItems()
     val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
     val pullRefreshState =
         rememberPullRefreshState(refreshing = isRefreshing, onRefresh = { movieList.refresh() })
@@ -34,7 +34,7 @@ fun HomeScreen(navController: NavHostController, viewModel: MainViewModel) {
         contentAlignment = Alignment.Center
     ) {
         MainContent(
-            movieList = movieList,
+            videoList = movieList,
             isRefreshing = true,
             onFavouriteClick = { movie -> viewModel.onFavouriteClick(movie) },
             onShareClick = { movie -> context.shareLink("") }
