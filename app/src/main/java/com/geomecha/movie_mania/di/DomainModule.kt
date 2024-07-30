@@ -9,7 +9,7 @@ import com.geomecha.movie_mania.domain.usecase.RemoveFromFavouriteUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
-    single { GetVideoListUseCase(get()) }
+    single { GetVideoListUseCase(get(), get(), get()) }
     single { GetFavouriteListUseCase() }
     single { AddToFavouriteUseCase() }
     single { RemoveFromFavouriteUseCase() }
