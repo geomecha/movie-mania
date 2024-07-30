@@ -3,6 +3,7 @@ package com.geomecha.movie_mania.presentation.ui.home
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
@@ -38,6 +39,12 @@ fun HomeScreen(navController: NavHostController, viewModel: MainViewModel) {
             isRefreshing = true,
             onFavouriteClick = { movie -> viewModel.onFavouriteClick(movie) },
             onShareClick = { movie -> context.shareLink(movie.originalTitle) }
+        )
+
+        PullRefreshIndicator(
+            refreshing = isRefreshing,
+            state = pullRefreshState,
+            modifier = Modifier.align(Alignment.TopCenter)
         )
     }
 
