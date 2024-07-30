@@ -4,9 +4,26 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.geomecha.movie_mania.data.local.converter.ListGenreIdsConverter
 import com.geomecha.movie_mania.data.local.dao.VideoDao
+import com.geomecha.movie_mania.data.local.entity.VideoLocal
 
-@Database(entities = [Any::class], version = 1)
+@Database(
+    entities =
+    [VideoLocal::class
+    ],
+    version = 1,
+    autoMigrations = [],
+    exportSchema = true
+)
+
+@TypeConverters(
+    value = [
+        ListGenreIdsConverter::class
+    ]
+)
+
 abstract class AppDatabase : RoomDatabase() {
     abstract fun videoDao(): VideoDao
 

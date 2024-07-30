@@ -1,6 +1,7 @@
 package com.geomecha.movie_mania.data.remote.repository
 
 import com.geomecha.movie_mania.data.local.LocalDataSource
+import com.geomecha.movie_mania.data.local.mapper.toLocal
 import com.geomecha.movie_mania.data.remote.api.ApiService
 import com.geomecha.movie_mania.data.remote.mapper.toEntity
 import com.geomecha.movie_mania.domain.model.Video
@@ -14,9 +15,19 @@ class VideoRepositoryImpl(
     override suspend fun getVideoList(page: Int): List<Video> {
         val response = apiService.getVideoList(page)
         when (response.isSuccessful) {
-            true -> return response.body()?.videoResponses?.map { it.toEntity() } ?: emptyList()
-            false -> throw Exception("Network error with code: ${response.code()}")
+            true -> {
+                response.body()?.let { dataModels ->
+                    val videos = dataModels.videoResponses.map { it.toEntity() }
+                    val videosLocal = videos.map { it.toLocal() }
+                    localDataSource.insertVideo(videosLocal)
+
+                    return videos
+                }
+            }
+
+            false -> return emptyList()
         }
+        return emptyList()
     }
 
     override suspend fun getFavouriteList(): List<Any> {
