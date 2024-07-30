@@ -37,7 +37,7 @@ fun HomeScreen(navController: NavHostController, viewModel: MainViewModel) {
             videoList = movieList,
             isRefreshing = true,
             onFavouriteClick = { movie -> viewModel.onFavouriteClick(movie) },
-            onShareClick = { movie -> context.shareLink("") }
+            onShareClick = { movie -> context.shareLink(movie.originalTitle) }
         )
     }
 

@@ -30,8 +30,8 @@ import com.geomecha.movie_mania.presentation.theme.Orange
 fun MainContent(
     videoList: LazyPagingItems<Video>,
     isRefreshing: Boolean,
-    onShareClick: (Any) -> Unit,
-    onFavouriteClick: (Any) -> Unit
+    onShareClick: (Video) -> Unit,
+    onFavouriteClick: (Video) -> Unit
 ) {
 
     val pullRefreshState = rememberPullRefreshState(isRefreshing, { videoList.refresh() })
@@ -56,7 +56,13 @@ fun MainContent(
                     }
                 )
         )
-        if (videoList.itemCount > EMPTY_SIZE && !videoList.loadState.isLoading()) {
+
+        if (videoList.itemCount == EMPTY_SIZE && !videoList.loadState.isLoading()) {
+            EmptyState(
+                message = stringResource(id = R.string.no_movies_available),
+                onRetry = { videoList.refresh() }
+            )
+        } else {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize(),
@@ -82,11 +88,6 @@ fun MainContent(
                     }
                 }
             }
-        } else {
-            EmptyState(
-                message = stringResource(id = R.string.no_movies_available),
-                onRetry = { videoList.refresh() }
-            )
         }
     }
 }

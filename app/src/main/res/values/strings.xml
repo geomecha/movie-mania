@@ -6,6 +6,7 @@
     <string name="favourites_text">favourites</string>
     <string name="share_via">Share via</string>
     <string name="like">LIKE</string>
+    <string name="dislike">DISLIKE</string>
     <string name="share">SHARE</string>
     <string name="retry">Retry</string>
     <string name="no_movies_available">No movies available</string>

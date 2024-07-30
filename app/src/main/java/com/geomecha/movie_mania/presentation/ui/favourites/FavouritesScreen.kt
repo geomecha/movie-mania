@@ -16,7 +16,8 @@ import com.geomecha.movie_mania.presentation.ui.viewmodel.MainViewModel
 @Composable
 fun FavouritesScreen(navController: NavHostController, viewModel: MainViewModel) {
 
-    val movieList = viewModel.videoList.collectAsLazyPagingItems()
+    val movieList = viewModel.favouriteVideoList.collectAsLazyPagingItems()
+
     val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
     val pullRefreshState = rememberPullRefreshState(isRefreshing, { movieList.refresh() })
     val context = LocalContext.current
@@ -25,6 +26,6 @@ fun FavouritesScreen(navController: NavHostController, viewModel: MainViewModel)
         videoList = movieList,
         isRefreshing = isRefreshing,
         onFavouriteClick = { movie -> viewModel.onFavouriteClick(movie) },
-        onShareClick = { movie -> context.shareLink("") }
+        onShareClick = { movie -> context.shareLink(movie.originalTitle) }
     )
 }

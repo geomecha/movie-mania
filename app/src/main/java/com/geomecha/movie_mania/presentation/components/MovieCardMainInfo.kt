@@ -17,36 +17,37 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.geomecha.movie_mania.domain.model.Video
+import com.geomecha.movie_mania.presentation.theme.Grey
 import com.geomecha.movie_mania.presentation.theme.GreyLight
 import com.geomecha.movie_mania.presentation.theme.TextColor
 
+@Preview
 @Composable
-fun VideoCardMainInfo(video: Video) {
+fun VideoCardMainInfo(video: Video? = null) {
     Row(
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Column(
-            modifier = Modifier
-                .padding(start = 10.dp)
-        ) {
+        Column {
             Image(
                 modifier = Modifier
+                    .padding(top = 6.dp)
                     .size(80.dp)
                     .clip(RoundedCornerShape(4.dp))
                     .background(GreyLight),
-                painter = rememberAsyncImagePainter(model = video.posterPath),
+                painter = rememberAsyncImagePainter(model = video?.posterPath),
                 contentScale = ContentScale.Crop,
                 contentDescription = null
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = video.voteAverage.toString(),
+                text = video?.voteAverage.toString(),
                 fontSize = 12.sp,
-                color = TextColor,
+                color = Grey,
                 fontWeight = FontWeight.Medium,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
@@ -58,7 +59,7 @@ fun VideoCardMainInfo(video: Video) {
                 .padding(start = 20.dp)
         ) {
             Text(
-                text = video.originalTitle,
+                text = video?.originalTitle.toString(),
                 fontSize = 18.sp,
                 color = TextColor,
                 fontWeight = FontWeight.Medium,
@@ -67,7 +68,7 @@ fun VideoCardMainInfo(video: Video) {
             )
             Spacer(Modifier.height(8.dp))
             Text(
-                text = video.overview,
+                text = video?.overview.toString(),
                 fontSize = 12.sp,
                 color = TextColor,
                 fontWeight = FontWeight.Normal,

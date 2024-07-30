@@ -13,3 +13,4 @@ const val IMG_URL = "https://image.tmdb.org/t/p/w200/"
 const val PAGE_SIZE = 20
 const val FIRST_PAGE = 1
 const val ONE_PAGE = 1
+const val SINGLE_ITEM = 1

@@ -10,9 +10,9 @@ import org.koin.dsl.module
 
 val domainModule = module {
     single { GetVideoListUseCase(get(), get(), get()) }
-    single { GetFavouriteListUseCase() }
-    single { AddToFavouriteUseCase() }
-    single { RemoveFromFavouriteUseCase() }
+    single { GetFavouriteListUseCase(get()) }
+    single { AddToFavouriteUseCase(get()) }
+    single { RemoveFromFavouriteUseCase(get()) }
     single { GetMoviesListMaxVoteUseCase() }
     single { GetMoviesMaxCountVoteUseCase() }
 }

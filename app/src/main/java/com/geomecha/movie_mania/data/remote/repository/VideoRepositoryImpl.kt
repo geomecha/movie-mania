@@ -17,7 +17,12 @@ class VideoRepositoryImpl(
         when (response.isSuccessful) {
             true -> {
                 response.body()?.let { dataModels ->
-                    val videos = dataModels.videoResponses.map { it.toEntity() }
+                    val videos = dataModels.videoResponses.map {
+                        it.toEntity().let { video ->
+                            video.isFavorite = localDataSource.isFavourite(video.id)
+                            video
+                        }
+                    }
                     val videosLocal = videos.map { it.toLocal() }
                     localDataSource.insertVideo(videosLocal)
 

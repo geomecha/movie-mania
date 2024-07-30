@@ -1,9 +1,12 @@
 package com.geomecha.movie_mania.domain.usecase
 
-class RemoveFromFavouriteUseCase() {
+import com.geomecha.movie_mania.data.local.LocalDataSource
+import com.geomecha.movie_mania.domain.model.Video
 
-    suspend operator fun invoke() {
+class RemoveFromFavouriteUseCase(private val localDataSource: LocalDataSource) {
 
+    suspend operator fun invoke(video: Video) {
+        localDataSource.removeFromFavourite(video.id)
     }
 
 }

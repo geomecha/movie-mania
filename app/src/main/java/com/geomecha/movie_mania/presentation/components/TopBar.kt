@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.geomecha.movie_mania.R
 import com.geomecha.movie_mania.presentation.theme.AppBarColor
-import com.geomecha.movie_mania.presentation.theme.GREY
+import com.geomecha.movie_mania.presentation.theme.Grey
 
 @Preview
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,7 +35,7 @@ fun TopBar(currentRoute: String? = stringResource(id = R.string.home_text)) {
                 style = TextStyle(
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 20.sp,
-                    color = GREY
+                    color = Grey
                 )
             )
         },
@@ -44,14 +44,14 @@ fun TopBar(currentRoute: String? = stringResource(id = R.string.home_text)) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.person_icon),
                     contentDescription = "Your Icon Description",
-                    tint = GREY
+                    tint = Grey
                 )
             }
         },
         colors = topAppBarColors(
             containerColor = AppBarColor,
-            titleContentColor = GREY,
-            actionIconContentColor = GREY
+            titleContentColor = Grey,
+            actionIconContentColor = Grey
         ),
         modifier = Modifier
             .background(AppBarColor)

@@ -13,6 +13,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
@@ -23,15 +25,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.geomecha.movie_mania.R
 import com.geomecha.movie_mania.domain.model.Video
-import com.geomecha.movie_mania.presentation.theme.ButtonColor
+import com.geomecha.movie_mania.presentation.theme.Orange
 import com.geomecha.movie_mania.presentation.theme.SemiTransparentBlack
 
 @Composable
 fun VideoCard(
     video: Video,
-    onFavouriteClick: (Any) -> Unit,
-    onShareClick: (Any) -> Unit
+    onFavouriteClick: (Video) -> Unit,
+    onShareClick: (Video) -> Unit
 ) {
+
+    val isFavorite by video.favoriteLive.collectAsState(false)
+
     Box(
         modifier = Modifier
             .height(300.dp)
@@ -46,13 +51,18 @@ fun VideoCard(
             .clip(RoundedCornerShape(CORNER_MAIN.dp))
             .background(Color.White)
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(
+            modifier = Modifier.padding(
+                top = 10.dp,
+                start = 16.dp,
+                bottom = 16.dp,
+                end = 16.dp
+            )
+        ) {
 
             Box(Modifier.alpha(ALPHA_VISIBLE)) {
                 Column {
                     VideoCardMainInfo(video)
-
-                    Spacer(Modifier.height(8.dp))
                 }
             }
             Spacer(modifier = Modifier.weight(1f))
@@ -66,9 +76,11 @@ fun VideoCard(
                     onClick = { onFavouriteClick(video) }
                 ) {
                     Text(
-                        text = stringResource(id = R.string.like),
-                        color = ButtonColor,
-                        fontWeight = FontWeight.SemiBold
+                        text = if (isFavorite) stringResource(id = R.string.dislike) else stringResource(
+                            id = R.string.like
+                        ),
+                        color = Orange,
+                        fontWeight = FontWeight.Bold
                     )
 
                 }
@@ -77,8 +89,8 @@ fun VideoCard(
                 ) {
                     Text(
                         text = stringResource(id = R.string.share),
-                        color = ButtonColor,
-                        fontWeight = FontWeight.SemiBold
+                        color = Orange,
+                        fontWeight = FontWeight.Bold
                     )
                 }
             }
