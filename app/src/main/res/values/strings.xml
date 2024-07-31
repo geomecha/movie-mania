@@ -10,5 +10,7 @@
     <string name="share">SHARE</string>
     <string name="retry">Retry</string>
     <string name="no_movies_available">No movies available</string>
-
+    <string name="hundred_count_vote">100+</string>
+    <string name="new_video">New</string>
+    <string name="seven_average">7+</string>
 </resources>

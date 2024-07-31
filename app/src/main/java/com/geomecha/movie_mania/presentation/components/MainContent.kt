@@ -4,7 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.pullrefresh.pullRefresh
@@ -31,7 +33,10 @@ fun MainContent(
     videoList: LazyPagingItems<Video>,
     isRefreshing: Boolean,
     onShareClick: (Video) -> Unit,
-    onFavouriteClick: (Video) -> Unit
+    onFavouriteClick: (Video) -> Unit,
+    onVoteAverageClick: () -> Unit,
+    onVoteCountClick: () -> Unit,
+    onNewClick: () -> Unit
 ) {
 
     val pullRefreshState = rememberPullRefreshState(isRefreshing, { videoList.refresh() })
@@ -57,6 +62,36 @@ fun MainContent(
                 )
         )
 
+        if (videoList.itemCount > 0) {
+            CustomOutlinedButton(
+                modifier = Modifier
+                    .padding(start = 30.dp, top = 10.dp, bottom = 10.dp)
+                    .width(100.dp)
+                    .align(Alignment.TopStart),
+                color = Orange,
+                text = stringResource(id = R.string.seven_average),
+                onClick = { onVoteAverageClick.invoke() }
+            )
+            CustomOutlinedButton(
+                modifier = Modifier
+                    .padding(top = 10.dp, bottom = 10.dp)
+                    .width(100.dp)
+                    .align(Alignment.TopCenter),
+                color = Orange,
+                text = stringResource(id = R.string.hundred_count_vote),
+                onClick = { onVoteCountClick.invoke() }
+            )
+            CustomOutlinedButton(
+                modifier = Modifier
+                    .padding(end = 30.dp, top = 10.dp, bottom = 10.dp)
+                    .width(100.dp)
+                    .align(Alignment.TopEnd),
+                color = Orange,
+                text = stringResource(id = R.string.new_video),
+                onClick = { onNewClick.invoke() }
+            )
+        }
+
         if (videoList.itemCount == EMPTY_SIZE && !videoList.loadState.isLoading()) {
             EmptyState(
                 message = stringResource(id = R.string.no_movies_available),
@@ -65,7 +100,8 @@ fun MainContent(
         } else {
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .padding(top = 60.dp),
                 contentPadding = PaddingValues(
                     start = 16.dp,
                     end = 16.dp,

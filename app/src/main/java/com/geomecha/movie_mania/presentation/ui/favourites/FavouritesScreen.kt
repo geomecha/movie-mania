@@ -38,7 +38,10 @@ fun FavouritesScreen(navController: NavHostController, viewModel: MainViewModel)
             videoList = movieList,
             isRefreshing = true,
             onFavouriteClick = { movie -> viewModel.onFavouriteClick(movie) },
-            onShareClick = { movie -> context.shareLink(movie.originalTitle) }
+            onShareClick = { movie -> context.shareLink(movie.originalTitle) },
+            onVoteAverageClick = { viewModel.onVoteAverageClick() },
+            onVoteCountClick = { viewModel.onVoteCountClick() },
+            onNewClick = { viewModel.onNewClick() }
         )
 
         PullRefreshIndicator(

@@ -24,9 +24,9 @@ class GetVideoListUseCase(
             ),
             pagingSourceFactory = {
                 VideoDataSource(
-                    connectivityProvider,
-                    videoRepository,
-                    localDataSource
+                    connectivityProvider = connectivityProvider,
+                    apiLoadMethod = { page -> videoRepository.getVideosRemote(page) },
+                    localLoadMethod = { page -> localDataSource.getVideosLocal(page, PAGE_SIZE) }
                 )
             }
         ).flow

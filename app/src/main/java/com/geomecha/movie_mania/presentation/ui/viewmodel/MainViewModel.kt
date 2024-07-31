@@ -9,6 +9,7 @@ import com.geomecha.movie_mania.domain.usecase.AddToFavouriteUseCase
 import com.geomecha.movie_mania.domain.usecase.GetFavouriteListUseCase
 import com.geomecha.movie_mania.domain.usecase.GetMoviesListMaxVoteUseCase
 import com.geomecha.movie_mania.domain.usecase.GetMoviesMaxCountVoteUseCase
+import com.geomecha.movie_mania.domain.usecase.GetNewMoviesUseCase
 import com.geomecha.movie_mania.domain.usecase.GetVideoListUseCase
 import com.geomecha.movie_mania.domain.usecase.RemoveFromFavouriteUseCase
 import kotlinx.coroutines.Dispatchers
@@ -21,13 +22,15 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class MainViewModel(
     private val getVideoListUseCase: GetVideoListUseCase,
     private val getFavouriteListUseCase: GetFavouriteListUseCase,
     private val addToFavouriteUseCase: AddToFavouriteUseCase,
     private val removeFromFavouriteUseCase: RemoveFromFavouriteUseCase,
     private val getMoviesMaxCountVoteUseCase: GetMoviesMaxCountVoteUseCase,
-    private val getMovieListMaxVoteUseCase: GetMoviesListMaxVoteUseCase
+    private val getMovieListMaxVoteUseCase: GetMoviesListMaxVoteUseCase,
+    private val getNewMoviesUseCase: GetNewMoviesUseCase
 ) : ViewModel() {
 
     private val _videoList = MutableStateFlow<PagingData<Video>>(PagingData.empty())
@@ -45,7 +48,7 @@ class MainViewModel(
     init {
         getVideoList()
         getFavouriteList()
-        launchRefreshTriger()
+        launchRefreshTrigger()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -78,7 +81,7 @@ class MainViewModel(
         }
     }
 
-    private fun launchRefreshTriger() {
+    private fun launchRefreshTrigger() {
         viewModelScope.launch {
             _refreshTrigger.emit(Unit)
         }
@@ -93,9 +96,49 @@ class MainViewModel(
             }
             video.isFavorite = !video.isFavorite
             _refreshTrigger.emit(Unit)
-
         }
+    }
 
+    fun onVoteAverageClick() {
+        viewModelScope.launch(Dispatchers.IO) {
+            refreshTrigger
+                .flatMapLatest {
+                    getMovieListMaxVoteUseCase.invoke()
+                        .distinctUntilChanged()
+                        .cachedIn(viewModelScope)
+                }
+                .collect {
+                    _videoList.value = it
+                }
+        }
+    }
+
+    fun onVoteCountClick() {
+        viewModelScope.launch(Dispatchers.IO) {
+            refreshTrigger
+                .flatMapLatest {
+                    getMoviesMaxCountVoteUseCase.invoke()
+                        .distinctUntilChanged()
+                        .cachedIn(viewModelScope)
+                }
+                .collect {
+                    _videoList.value = it
+                }
+        }
+    }
+
+    fun onNewClick() {
+        viewModelScope.launch(Dispatchers.IO) {
+            refreshTrigger
+                .flatMapLatest {
+                    getNewMoviesUseCase.invoke()
+                        .distinctUntilChanged()
+                        .cachedIn(viewModelScope)
+                }
+                .collect {
+                    _videoList.value = it
+                }
+        }
     }
 
 }

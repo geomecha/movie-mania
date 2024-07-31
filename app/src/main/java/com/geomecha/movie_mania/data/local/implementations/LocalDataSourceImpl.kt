@@ -12,7 +12,7 @@ class LocalDataSourceImpl(
     private val videoDao: VideoDao
 ) : LocalDataSource {
 
-    override suspend fun getAllVideos(page: Int, pageSize: Int): List<Video> {
+    override suspend fun getVideosLocal(page: Int, pageSize: Int): List<Video> {
         val row = (page - SINGLE_ITEM) * pageSize
         return videoDao.getAllVideos(row, pageSize).map { it.toEntity() }
     }
